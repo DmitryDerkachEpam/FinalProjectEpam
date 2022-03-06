@@ -11,6 +11,7 @@ import com.epam.command.CommandFactory;
 import com.epam.command.CommandResult;
 import com.epam.command.NavigationType;
 import com.epam.dbconnection.СonnectionManager;
+import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 
 @WebServlet("/mainController")
@@ -66,6 +67,9 @@ public class MainController extends HttpServlet {
 		} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
 }

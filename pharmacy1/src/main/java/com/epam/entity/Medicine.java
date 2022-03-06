@@ -16,6 +16,10 @@ public class Medicine implements Identifable{
 		
 	}
 	
+	public Medicine(int id) {
+		this.id = id;
+	}
+	
 	public Medicine (int id, String name, int dose, boolean isReceiptRequired, int price) {
 		this.id = id;
 		this.name = name;

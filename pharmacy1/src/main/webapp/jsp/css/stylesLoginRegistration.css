@@ -1,0 +1,46 @@
+#loginWrapper {
+    /*outline: 1px solid blue;*/
+    background-color: aliceblue;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 100px 0;
+}
+
+#loginWrapper div {
+    /*outline: 1px solid blue;*/
+    margin: 5px auto;
+    text-align: center;
+}
+
+#loginWrapper a:hover {
+    text-decoration: none;
+}
+
+#loginWrapper a:active {
+    text-decoration: none;
+    color: dodgerblue;
+}
+
+#loginLabel {
+    color: royalblue;
+    font-size: 45px;
+}
+
+#submitButton {
+    border: royalblue;
+    width: 85px;
+    height: 25px;
+    margin: 10px auto;
+    color: white;
+    background-color: royalblue;
+}
+
+#submitButton:hover {
+    background-color: dodgerblue;
+}
+
+

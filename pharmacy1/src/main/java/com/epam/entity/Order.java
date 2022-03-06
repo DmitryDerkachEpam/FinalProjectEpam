@@ -16,6 +16,10 @@ public class Order implements Identifable{
 		
 	}
 
+	public Order(Integer id) {
+		this.id = id;
+	}
+	
 	public Order(int id, LocalDate date, User associatedUser, boolean isPaid) {
 		this.id = id;
 		this.date = date;

@@ -25,9 +25,9 @@ public class RegistrationCommand implements Command {
 		 CommandResult commandResult = null;
 		 String page;
 		 /*Получать данные с JSP*/
-		 String emailValue = "dima@mail.ru"; /*request.getParameter(EMAIL);*/
-		 String passwordValue ="dima"; /*request.getParameter(PASSWORD);*/
-		 String nameValue = "dima";/*request.getParameter(NAME);*/
+		 String emailValue = request.getParameter(EMAIL);
+		 String passwordValue =request.getParameter(PASSWORD);
+		 String nameValue = request.getParameter(NAME);
 		 UserService userService = new UserService(new TransactionFactory());
 		 
 		 User newUser = new User();

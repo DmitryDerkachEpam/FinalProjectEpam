@@ -3,36 +3,43 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="css/stylesLoginRegistration.css">
 </head>
 <body>
-<br>
-<br>
-
-
+<%@ include file="header.jsp"%>
+<div></div>
 <form action="${pageContext.request.contextPath}/mainController" method="post">
-    <label for="emailId"><fmt:message key="user.email" />
-    	<input type="hidden" name="command" value="login"/>
-        <input type="text" name="email" id="emailId">
-    </label>
-    <br>
-    <br>
-    <label for="passwordId"><fmt:message key="user.password" />
-        <input type="password" name="password" id="passwordId">
-    </label>
-    <br>
-    <br>
-    <button type="reset"><fmt:message key="button.reset" /></button>
-    <button type="submit"><fmt:message key="button.submit" /></button>
-    <br>
-    <c:if test="${param.error !=null}">
-        <div style="color: red">
-            <span><fmt:message key="error" /></span>
+<input type="hidden" name="command" value="login"/>
+    <div id="loginWrapper">
+        <div id="loginLabel">Welcome to Pharmacy ink!</div>
+        <div>
+            <c:if test="${not empty sessionScope.message}">
+                <div style="color: red">${sessionScope.message} </div>
+            </c:if>
+            <div>
+                Email
+            </div>
+            <label for="name">
+                <input id="name" type="text" name="email">
+            </label>
+            <br><br>
+            <div>
+                Password
+            </div>
+            <label for="password">
+                <input id="password" type="password" name="password">
+            </label>
+            <br><br>
+            <input id="submitButton" type="submit" value="Submit">
         </div>
-    </c:if>
+        <br>
+        <div>
+            <a href="../jsp/registration.jsp">Or create a new account</a>
+        </div>
+    </div>
 </form>
-<h3>
-    <a href="http://localhost:8080/jsp/registration.jsp"><fmt:message key="message.first.time"/></a>
-</h3>
+<%@ include file="footer.jsp"%>
 </body>
 </html>

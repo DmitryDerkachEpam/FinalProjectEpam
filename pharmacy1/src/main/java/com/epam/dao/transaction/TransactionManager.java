@@ -3,8 +3,10 @@ package com.epam.dao.transaction;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.epam.dao.ItemDaoImpl;
 import com.epam.dao.MedicineDaoImpl;
 import com.epam.dao.OrderDaoImpl;
+import com.epam.dao.ReceiptDaoImpl;
 import com.epam.dao.UserDaoImpl;
 
 public class TransactionManager implements AutoCloseable{
@@ -32,6 +34,14 @@ public class TransactionManager implements AutoCloseable{
 		return new OrderDaoImpl(connection);
 	}
 	
+	public ReceiptDaoImpl createReceiptDao() {
+		return new ReceiptDaoImpl(connection);
+	}
+	
+	public ItemDaoImpl createItemDao() {
+		return new ItemDaoImpl(connection);
+	}
+	
 	public void startTransaction() throws SQLException {
 		try {
 			connection.setAutoCommit(false);
@@ -48,6 +58,5 @@ public class TransactionManager implements AutoCloseable{
 			throw new SQLException();
 		}
 	}
-	
 	
 }

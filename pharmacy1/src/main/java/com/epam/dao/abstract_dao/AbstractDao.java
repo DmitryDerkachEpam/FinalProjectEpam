@@ -67,7 +67,7 @@ public abstract class AbstractDao <T extends Identifable> implements Dao<T> {
 	
 	@Override
 	public Optional<T> findById(int id) throws SQLException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	

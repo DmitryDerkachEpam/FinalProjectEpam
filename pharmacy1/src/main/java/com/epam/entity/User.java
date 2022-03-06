@@ -13,16 +13,20 @@ public class User implements Identifable {
 	
 	public static final String TABLE = "users";
 	
+	public User() {
+		
+	}
+	
+	public User(int id) {
+		this.id = id;
+	}
+	
 	public User(int id, String name, String email, String password, UserRole userRole) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.userRole = userRole;
-	}
-	
-	public User() {
-		
 	}
 
 	public int getId() {

@@ -1,19 +1,13 @@
 package com.epam.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import com.epam.dao.abstract_dao.AbstractDao;
 import com.epam.dao.abstract_dao.MedicineDao;
 import com.epam.dao.entity_builder.MedicineEntityBuilder;
-import com.epam.dbconnection.СonnectionManager;
 import com.epam.entity.Medicine;
-
 
 public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDao{
 	

@@ -2,6 +2,8 @@ package com.epam.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+
 import com.epam.dao.MedicineDaoImpl;
 import com.epam.dao.transaction.TransactionFactory;
 import com.epam.dao.transaction.TransactionManager;
@@ -28,4 +30,15 @@ public class MedicineService {
 		}
 	}//getAllMedicinesFromDataBase_Tested
 
+	public Optional<Medicine> getMedicineById(int id) throws ServiceException {
+		try(TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			MedicineDaoImpl dao = currentTransaction.createMedicineDao();
+			Optional<Medicine> medicine = dao.findById(id);
+			currentTransaction.endTransaction();
+			return medicine;
+		} catch (SQLException e) {
+			throw new ServiceException();
+		}
+	}
 }

@@ -1,10 +1,10 @@
 package com.epam.entity;
 
 import java.time.LocalDate;
-
+import com.epam.dao.marker.Identifable;
 import com.epam.entity.receipt_state.ReceiptState;
 
-public class Receipt {
+public class Receipt implements Identifable{
 	
 	private int id;
 	private User associatedUser;

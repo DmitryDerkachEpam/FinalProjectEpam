@@ -1,0 +1,68 @@
+#wrapper {
+    /*outline: 1px solid blue;*/
+    min-width: 700px;
+    margin: 0;
+}
+
+.main {
+    display: flex;
+    min-height: 500px;
+}
+
+#sidebar {
+    /*outline: 1px solid blue;*/
+    background-color: #6a98ec;
+    min-width: 250px;
+    margin: 0;
+    padding: 20px 0 0 0;
+}
+
+#sidebar ul {
+    /*outline: 1px solid blue;*/
+    margin: 0 20px;
+    padding: 0;
+}
+
+#sidebar li {
+    /*outline: 1px solid blue;*/
+    list-style-type: none;
+    margin: 5px 0;
+}
+
+#sidebar a {
+    justify-content: right;
+    background-color: #6a98ec;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 15px 15px 15px 30px;
+    display: flex;
+    text-decoration: none;
+}
+#sidebar a:hover {
+    background-color: deepskyblue;
+}
+
+#content {
+    /*outline: 1px solid blue;*/
+    background-color: aliceblue;
+    min-width: 320px;
+    width: 100%;
+    padding: 15px;
+}
+
+#content h1 {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+}
+
+#addNewMedicine {
+    /*outline: 1px solid blue;*/
+    background-color: #6a98ec;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+}

@@ -2,6 +2,7 @@ package com.epam.pagemanager;
 
 public enum PageMapper {
 	USER_MAIN_PAGE_KEY ("user.main.page"),
+	USER_SHOPPING_CART_PAGE_KEY("user.cart.page"),
 	DOCTOR_MAIN_PAGE_KEY ("doctor.main.page"),
 	PHARMACIST_MAIN_PAGE_KEY ("pharmacist.main.page"),
 	ADMIN_MAIN_PAGE_KEY ("admin.main.page"),
