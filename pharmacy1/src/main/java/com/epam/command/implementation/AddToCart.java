@@ -49,8 +49,8 @@ public class AddToCart implements Command {
 		itemService.saveItemIntoDatabase(item);
 		
 		page = request.getContextPath() + PageManager.getValue(PageMapper.USER_MAIN_PAGE_KEY.getPageName());
-		request.getSession().setAttribute("message", "Product successfully added to cart");
-		request.getSession().setAttribute("massage", medicineId);
+		request.getSession().setAttribute("message", "was successfully added to cart");
+		request.getSession().setAttribute("messageId", medicineId);
 		commandResult = new CommandResult(page, NavigationType.REDIRECT);
 		
 		

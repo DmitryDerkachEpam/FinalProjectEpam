@@ -59,7 +59,7 @@ public class ItemService {
 				System.out.println();
 				
 			}
-			
+			currentTransaction.endTransaction();
 		} catch (SQLException e) {
 			throw new ServiceException();
 		}

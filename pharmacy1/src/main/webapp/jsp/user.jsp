@@ -41,52 +41,40 @@
 				</ul>
 			</div>
 			<div id="content">
-				<form action="${pageContext.request.contextPath}/mainController" method="post">
-					<%-- <c:forEach var="medicine" items="${sessionScope.medicines}"> --%>			 
-						<!-- <h3> -->
-						<!-- 	<label>  -->
-<%-- 							<input type="hidden" name="medicineId" value="${medicine.id}" /> ${medicine.name} <br> 
-							Active dose: ${medicine.dose} mg<br> 
-							Receipt required: 
-							<c:if
-								test="${medicine.isReceiptRequired eq 'true'}">
+				<c:forEach var="index" begin="0"
+					end="${sessionScope.medicines.size()-1}">
+
+					<form action="${pageContext.request.contextPath}/mainController"
+						method="post">
+
+						<label> <input type="hidden" name="medicineId"
+							value="${sessionScope.medicines.get(index).id}" />
+							${sessionScope.medicines.get(index).name} <br> Active dose:
+							${sessionScope.medicines.get(index).dose} mg<br> Receipt
+							required: <c:if
+								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'true'}">
 								<span>Yes</span>
-							</c:if> 
-							<c:if test="${medicine.isReceiptRequired eq 'false'}">
+							</c:if> <c:if
+								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'false'}">
 								<span>No</span>
-							</c:if> <br> 
-							Price: ${medicine.price}$<br> 
-							
+							</c:if> <br> Price: ${sessionScope.medicines.get(index).price}$<br>
 							<input type="number" name="quantity" value="0" />
-							<button type="submit" name="command" value="addtocart">Add to cart</button> <br>	 --%>
-						<!-- 		</label> -->
-						<!-- </h3> -->
-				<%-- 	</c:forEach> --%>
-				
-				
-				
-				
-						 <c:forEach var="index" begin="0" end=${sessionScope.medicines.size()}> 
-						 	<input type="hidden" name="medicineId" value="${sessionScope.medicines.id}" /> 
-						 	${medicine.name} <br> 
-							Active dose: ${medicine.dose} mg<br> 
-							Receipt required: 
-							<c:if
-								test="${medicine.isReceiptRequired eq 'true'}">
-								<span>Yes</span>
+							<button type="submit" name="command" value="addtocart">Add
+								to cart</button> <br> 
+							<c:if test="${not empty sessionScope.message}">
+								<c:if
+									test="${sessionScope.messageId == sessionScope.medicines.get(index).id}">
+									<div style="color: green;">${sessionScope.medicines.get(index).name}
+										${sessionScope.message}</div>
+										 ${sessionScope.remove('message')}
+								</c:if> 
 							</c:if> 
-							<c:if test="${medicine.isReceiptRequired eq 'false'}">
-								<span>No</span>
-							</c:if> <br> 
-							Price: ${medicine.price}$<br> 
-							
-							<input type="number" name="quantity" value="0" />
-							<button type="submit" name="command" value="addtocart">Add to cart</button> <br>	
-						 </c:forEach>
-					
-		
-				</form>
+						</label>
+
+					</form>
+				</c:forEach>
 			</div>
+			
 		</div>
 	</div>
 	<%@ include file="footer.jsp"%>

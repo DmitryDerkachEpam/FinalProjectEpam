@@ -38,6 +38,7 @@ public class OrderService {
 			if (maybeExsitingOrder.isPresent()) {
 				maybeExsitingOrder.get().setAssociatedUser(user);
 			}
+			currentTransaction.endTransaction();
 			return maybeExsitingOrder;
 		} catch (SQLException e) {
 			throw new ServiceException(e);

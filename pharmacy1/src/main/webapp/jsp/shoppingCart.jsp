@@ -32,7 +32,7 @@
             </ul>
         </div>
         <div id="content">
-<form action="${pageContext.request.contextPath}/mainController" method="post">
+
     <c:forEach var="item" items="${sessionScope.items}">
         <h3>
             <label>
@@ -40,7 +40,7 @@
             </label>
         </h3>
     </c:forEach>
-</form>
+
         </div>
     </div>
 </div>
