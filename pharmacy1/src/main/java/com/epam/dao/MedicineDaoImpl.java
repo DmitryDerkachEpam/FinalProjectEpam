@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import com.epam.dao.abstract_dao.AbstractDao;
 import com.epam.dao.abstract_dao.MedicineDao;
-import com.epam.dao.entity_builder.MedicineEntityBuilder;
 import com.epam.entity.Medicine;
 
 public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDao{
@@ -15,7 +14,6 @@ public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDa
 		super(connection);
 	}
 	
-	private static final String FIND_BY_ID = "select * from medicines where id = ?";
 	private static final String SAVE = 
 			"insert into medicines (name, dose, is_receipt_required, price) values (?, ?, ?, ?)";
 	@Override
@@ -25,7 +23,7 @@ public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDa
 
 	@Override
 	public Optional<Medicine> findById(int id) throws SQLException {
-		return executeForSingleResult(FIND_BY_ID, new MedicineEntityBuilder(), id);
+		return super.findById(id);
 	}
 
 	@Override

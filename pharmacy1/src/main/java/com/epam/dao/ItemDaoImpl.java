@@ -3,6 +3,8 @@ package com.epam.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+
 import com.epam.dao.abstract_dao.AbstractDao;
 import com.epam.dao.abstract_dao.ItemDao;
 import com.epam.dao.entity_builder.ItemEntityBuilder;
@@ -17,6 +19,9 @@ public class ItemDaoImpl extends AbstractDao<Item> implements ItemDao {
 	
 	private static final String FIND_BY_ORDER_ID = 
 	    	"select * from order_items where order_id = ?";
+	
+	private static final String FIND_BY_ORDER_AND_MED_ID = 
+			"select * from order_items where order_id = ? and medicine_id = ?";
 	
 	public ItemDaoImpl(Connection connection) {
 		super(connection);
@@ -42,6 +47,12 @@ public class ItemDaoImpl extends AbstractDao<Item> implements ItemDao {
 	@Override
 	protected String getTableName() {
 		return Item.TABLE;
+	}
+
+	public Optional<Item> findItemByOrderAndMedId(int orderId, int medicineId) throws SQLException {
+		Object[] itemData = {orderId, medicineId};
+		Optional<Item> result = executeForSingleResult(FIND_BY_ORDER_AND_MED_ID, new ItemEntityBuilder(), itemData);
+		return result;
 	}
 
 }

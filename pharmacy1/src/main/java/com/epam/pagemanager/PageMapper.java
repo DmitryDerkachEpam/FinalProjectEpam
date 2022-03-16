@@ -8,7 +8,8 @@ public enum PageMapper {
 	ADMIN_MAIN_PAGE_KEY ("admin.main.page"),
 	LOGIN_PAGE_KEY ("login.page"),
 	LOGOUT_PAGE_KEY ("logout.page"),
-	REGISTRATION_PAGE_KEY ("registration.page");
+	REGISTRATION_PAGE_KEY ("registration.page"),
+	USER_RECEIPTS_PAGE_KEY("user.receipts.page");
 	
 	private String pagekey;
 	

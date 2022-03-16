@@ -1,3 +1,4 @@
+<%@page import="com.epam.entity.receipt_state.ReceiptState"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -41,34 +42,35 @@
 				</ul>
 			</div>
 			<div id="content">
-				<c:forEach var="item" items="${sessionScope.items}">
-					<form action="${pageContext.request.contextPath}/mainController"
-						method="post">
-						<input type="hidden" name="medicineId"
-							value="${item.associatedMedicine.id}" /> <label>
-							Medicine name: ${item.associatedMedicine.name}<br> Quantity:
-							${item.quantity}<br> Receipt required: <c:if
-								test="${item.associatedMedicine.isReceiptRequired eq 'true'}">
-								<span>Yes</span>
-								<button type="submit" name="command" value="requestreceipt">Request
-									receipt</button>
-								<br>
-							</c:if> <c:if
-								test="${item.associatedMedicine.isReceiptRequired eq 'false'}">
-								<span>No</span>
-							</c:if> 
-							<c:if test="${not empty sessionScope.messageFromReceiptService}">
-							<c:if test="${sessionScope.medId == item.associatedMedicine.id}">
-								<div style="color: blue;">${sessionScope.messageFromReceiptService}</div>
-								${sessionScope.remove('messageFromReceiptService')}
-								${sessionScope.remove('medId')}
-							</c:if>
-						</c:if>
-						</label>
-					</form>
-				</c:forEach>
-
+    <c:forEach var="receipts" items="${sessionScope.receiptDtos}">
+    	<form action="${pageContext.request.contextPath}/mainController" method="post">
+			<input type="hidden" name="receiptDtoId" value="${receipts.id}" />
+            <label>
+            Receipt for medicine: ${receipts.medicineName}<br>
+            Receipt state: ${receipts.receiptState}
+			<c:choose>
+			<c:when test="${receipts.receiptState eq 'APPROVED'}">
+			<button type="submit" name="command" value="requestreceiptprolongation">Request prolongation</button>
+			</c:when>
+<%-- 			<c:otherwise>
+            No comment sir...
+        	</c:otherwise> --%>
+			</c:choose>
+			
+			<br>
+            <c:if test="${not empty receipts.expirationDate}">
+				Expiration date: ${receipts.expirationDate}<br>
+			</c:if>
+			
+			<c:if test="${empty receipts.expirationDate}">
+				Expiration date: Uncertain<br>
+			</c:if>
+			
+            </label>
+    	</form>
+    </c:forEach>
 			</div>
+			
 		</div>
 	</div>
 	<%@ include file="footer.jsp"%>

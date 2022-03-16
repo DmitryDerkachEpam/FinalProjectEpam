@@ -16,6 +16,8 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 	    	"insert into orders (date, user_id) values (?,?)";
 	private static final String FIND_ORDER_BY_USER_ID = 
 			"select * from orders where user_id = ? and is_paid = 'false'";
+	private static final String UPDATE_ITEM_QUANTITY = 
+			"update order_items set quantity = ? where order_id = ? and medicine_id = ?";
 	
 	public OrderDaoImpl(Connection connection) {
 		super(connection);
@@ -28,7 +30,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 		Object[] orderDataArray = {orderDate, associatedUserId};
 		executeForVoidResult(SAVE, orderDataArray);
 	}
-	/*Переписать!!!*/
+
 	@Override
 	public Optional<Order> findByUserId(User user) throws SQLException {
 		int userId = user.getId();
@@ -39,6 +41,11 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 	@Override
 	protected String getTableName() {
 		return Order.TABLE;
+	}
+
+	public void updateItemQuantity(int quantity, int orderId, int medId) throws SQLException {
+		executeForVoidResult(UPDATE_ITEM_QUANTITY, quantity, orderId, medId);
+		
 	}
 
 }

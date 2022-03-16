@@ -52,4 +52,16 @@ public class UserService {
 		}
 	}//saverUserIntoDatabase_Tested
 	
+	public Optional<User> getUserById(User user) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			UserDaoImpl dao = currentTransaction.createUserDao();
+			Optional<User> result = dao.findById(user.getId());
+			currentTransaction.endTransaction();
+			return result;
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
+	}
+	
 }

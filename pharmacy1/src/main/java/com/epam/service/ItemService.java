@@ -65,4 +65,17 @@ public class ItemService {
 		}
 		return itemList;
 	}
+
+	public Optional<Item> findItemByOrderIdAndMedicineId(int orderId, int medicineId) throws ServiceException {
+		try(TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ItemDaoImpl dao = currentTransaction.createItemDao();
+			Optional<Item> result = dao.findItemByOrderAndMedId(orderId, medicineId);
+			currentTransaction.endTransaction();
+			return result;
+		} catch (SQLException e) {
+			throw new ServiceException();
+		}
+	}
+	
 }

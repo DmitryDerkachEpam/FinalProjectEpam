@@ -67,16 +67,18 @@ public abstract class AbstractDao <T extends Identifable> implements Dao<T> {
 	
 	@Override
 	public Optional<T> findById(int id) throws SQLException {
-		
-		return null;
+		String table = getTableName();
+		EntityBuilder<T> mapper =  (EntityBuilder<T>) EntityBuilder.create(table);
+		Optional<T> result = executeForSingleResult("select * from " + table + " where id = ?", mapper, id);
+		return result;
 	}
 	
 	
 	@Override
 	public void removeBy(int id) throws SQLException {
 		String table = getTableName();
-		EntityBuilder<T> mapper = (EntityBuilder<T>) EntityBuilder.create(table);
-		executeForVoidResult("delete from " + table + "where id = ", id);
+		//EntityBuilder<T> mapper = (EntityBuilder<T>) EntityBuilder.create(table);
+		executeForVoidResult("delete from " + table + " where id = ?", id);
 	}
 	
 	@Override

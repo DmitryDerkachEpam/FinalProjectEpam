@@ -44,6 +44,17 @@ public class OrderService {
 			throw new ServiceException(e);
 		}
 	}
+
+	public void changeItemQuantity(int quantity, int orderId, int medId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			OrderDaoImpl dao = currentTransaction.createOrderDao();
+			dao.updateItemQuantity(quantity, orderId, medId);
+			currentTransaction.endTransaction();
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
+	}
 }
 
 

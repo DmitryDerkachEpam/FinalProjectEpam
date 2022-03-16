@@ -26,7 +26,7 @@
 						<form action="${pageContext.request.contextPath}/mainController"
 							method="post">
 							<button class='btn' type="submit" name="command"
-								value="showusercart">Receipts status</button>
+								value="showuserreceipts">Receipts status</button>
 							<br>
 						</form>
 					</li>
@@ -54,7 +54,9 @@
 							required: <c:if
 								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'true'}">
 								<span>Yes</span>
-							</c:if> <c:if
+							</c:if> 
+							
+							<c:if
 								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'false'}">
 								<span>No</span>
 							</c:if> <br> Price: ${sessionScope.medicines.get(index).price}$<br>

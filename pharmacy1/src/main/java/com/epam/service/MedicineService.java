@@ -30,13 +30,13 @@ public class MedicineService {
 		}
 	}//getAllMedicinesFromDataBase_Tested
 
-	public Optional<Medicine> getMedicineById(int id) throws ServiceException {
+	public Optional<Medicine> getMedicineById(int medicineId) throws ServiceException {
 		try(TransactionManager currentTransaction = transactionFactory.create()) {
 			currentTransaction.startTransaction();
 			MedicineDaoImpl dao = currentTransaction.createMedicineDao();
-			Optional<Medicine> medicine = dao.findById(id);
+			Optional<Medicine> result = dao.findById(medicineId);
 			currentTransaction.endTransaction();
-			return medicine;
+			return result;
 		} catch (SQLException e) {
 			throw new ServiceException();
 		}

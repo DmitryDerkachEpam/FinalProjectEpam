@@ -25,35 +25,37 @@ public class AddToCart implements Command {
 		String page;
 		
 		ItemService itemService = new ItemService(new TransactionFactory());
-		MedicineService medicineService = new MedicineService(new TransactionFactory());
 		OrderService orderService = new OrderService(new TransactionFactory());
 		
-		/*Нажимаем по 1-ой кнопке за раз! Никаких массивов*/
 		String medicineId = request.getParameter("medicineId");
 		String quantity = request.getParameter("quantity");
-		Item item = new Item();
-
-		Medicine medicine = new Medicine();
-		medicine.setId(Integer.parseInt(medicineId));
-		Optional<Medicine> medecineWithAllData = medicineService.getMedicineById(medicine.getId());
-		item.setAssociatedMedicine(medecineWithAllData.get());
 		
 		User user = (User) request.getSession().getAttribute("user");
+		
 		Optional<Order> order = orderService.findOrderByUserId(user);
+		int orderId = order.get().getId();
+		int medId = Integer.parseInt(medicineId);
 		
-		item.setAssociatedOrder(order.get());
-		System.out.println();
-		item.setQuantity(Integer.parseInt(quantity));
-	
-		/*Сохраняет!!!*/
-		itemService.saveItemIntoDatabase(item);
+		Optional<Item> item = itemService.findItemByOrderIdAndMedicineId(orderId, medId);
 		
-		page = request.getContextPath() + PageManager.getValue(PageMapper.USER_MAIN_PAGE_KEY.getPageName());
+		if (item.isPresent()) {
+			int oldQuantity = item.get().getQuantity();
+			int newQuantity = oldQuantity + Integer.parseInt(quantity);
+			orderService.changeItemQuantity(newQuantity, orderId, medId);
+		} else {
+			MedicineService medicineService = new MedicineService(new TransactionFactory());
+			Item newItem = new Item();
+			Optional<Medicine> medecineWithAllData = medicineService.getMedicineById(medId);
+			newItem.setAssociatedMedicine(medecineWithAllData.get());
+			newItem.setAssociatedOrder(order.get());
+			newItem.setQuantity(Integer.parseInt(quantity));
+			itemService.saveItemIntoDatabase(newItem);
+		}
+		
 		request.getSession().setAttribute("message", "was successfully added to cart");
 		request.getSession().setAttribute("messageId", medicineId);
+		page = request.getContextPath() + PageManager.getValue(PageMapper.USER_MAIN_PAGE_KEY.getPageName());
 		commandResult = new CommandResult(page, NavigationType.REDIRECT);
-		
-		
 		return commandResult;
 	}
 

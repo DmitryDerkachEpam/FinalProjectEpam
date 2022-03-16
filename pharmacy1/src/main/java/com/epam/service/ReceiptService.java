@@ -21,6 +21,30 @@ public class ReceiptService {
 	public ReceiptService(TransactionFactory transactionFactory) {
 		this.transactionFactory = transactionFactory;
 	}
+	
+	public Optional<Receipt> findReceiptByMedicineIdAndUserId(int medId, int userId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			/*!!!*/
+			Optional<Receipt> result = dao.findbyMedicineIdAndUserId(medId, userId);
+			currentTransaction.endTransaction();
+			return result;
+		} catch (SQLException e) {
+			throw new ServiceException();
+		}
+	}
+	
+	public void  saveReceiptIntoDatabase (Receipt receipt) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			dao.save(receipt);
+			currentTransaction.endTransaction();
+		} catch (Exception e) {
+			throw new ServiceException();
+		}
+	}
 
 	public List<Receipt> getAllRequstedReceipts() throws ServiceException{
 		
@@ -51,4 +75,44 @@ public class ReceiptService {
 				throw new ServiceException();
 			}
 		}
+
+	public List<Receipt> findReceiptsByUserId(User user) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			List<Receipt> listOfReceipts = dao.findAllReceiptsByUserId(user);
+			currentTransaction.endTransaction();
+			return listOfReceipts;
+		} catch (Exception e) {
+			throw new ServiceException();
+		}
+		
+	}
+
+	public void changeReceiptState(int receiptId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			dao.changeReceiptStateById(receiptId);
+			currentTransaction.endTransaction();
+		} catch (Exception e) {
+			throw new ServiceException();
+		}
+		
+	}
+
+	public Optional<Receipt> findReceiptById(int receiptId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			Optional<Receipt> result = dao.findById(receiptId);
+			currentTransaction.endTransaction();
+			return result;
+		} catch (Exception e) {
+			throw new ServiceException();
+		}
+	}
+
+	
+	
 	}

@@ -20,7 +20,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 			"select * from users where email = ? and password = ?";
 	private static final String SAVE = 
 	    	"insert into users (name, email, password) values (?,?,?)";
-	private static final String FIND_BY_ID = "select * from users where id = ?";
 
 	@Override
 	public Optional<User> findUserByEmailAndPassword(String login, String password) throws SQLException {
@@ -40,13 +39,13 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 	}
 	
 	@Override
-	public List<User> findAll() throws SQLException {
-		return super.findAll();
+	public Optional<User> findById(int id) throws SQLException {
+		return super.findById(id);
 	}
 	
 	@Override
-	public Optional<User> findById(int id) throws SQLException {
-		return executeForSingleResult(FIND_BY_ID, new UserEntityBuilder(), id);
+	public List<User> findAll() throws SQLException {
+		return super.findAll();
 	}
 
 	@Override

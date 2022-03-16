@@ -10,16 +10,15 @@ import com.epam.command.Command;
 import com.epam.command.CommandResult;
 import com.epam.command.NavigationType;
 import com.epam.dao.transaction.TransactionFactory;
-
+import com.epam.dto.ReceiptDto;
+import com.epam.dto.dtobuilder.BuildReceiptDto;
 import com.epam.entity.Order;
 import com.epam.entity.Receipt;
 import com.epam.entity.User;
 import com.epam.entity.roles.UserRole;
-
 import com.epam.exception.ExceptionMessage;
 import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
-import com.epam.mapper.MapFromReceiptToReceiptDto;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
 import com.epam.service.MedicineService;
@@ -28,8 +27,6 @@ import com.epam.service.ReceiptService;
 import com.epam.service.UserService;
 import com.epam.validator.OrderValidator;
 import com.epam.validator.UserValidator;
-
-import dto.ReceiptDto;
 
 public class LoginCommand implements Command {
 	
@@ -72,9 +69,9 @@ public class LoginCommand implements Command {
                             page = request.getContextPath() + PageManager.getValue(PageMapper.DOCTOR_MAIN_PAGE_KEY.getPageName());
                             List<Receipt> receiptsFromDatabase = receiptService.getAllRequstedReceipts();
                             List<ReceiptDto> receiptsForOutput = new ArrayList<>();
-                            MapFromReceiptToReceiptDto mapper = new MapFromReceiptToReceiptDto();
                             for (int i = 0; i < receiptsFromDatabase.size(); i++) {
-                            	ReceiptDto receiptForOutput = mapper.mapFromReceiptToReceiptDto(receiptsFromDatabase.get(i));
+                            	Receipt receipt = receiptsFromDatabase.get(i);
+                            	ReceiptDto receiptForOutput = BuildReceiptDto.BuildReceiptDtoFromReceipt(receipt);
                             	receiptsForOutput.add(receiptForOutput);
                             }
                             request.getSession().setAttribute("receipts", receiptsForOutput);

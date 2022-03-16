@@ -1,4 +1,4 @@
-package dto;
+package com.epam.dto;
 
 import java.time.LocalDate;
 import com.epam.entity.receipt_state.ReceiptState;
@@ -23,7 +23,7 @@ public class ReceiptDto {
 		this.userName = userName;
 		this.medicineName = medicineName;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
