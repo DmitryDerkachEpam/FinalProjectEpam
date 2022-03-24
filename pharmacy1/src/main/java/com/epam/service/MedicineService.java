@@ -41,4 +41,30 @@ public class MedicineService {
 			throw new ServiceException();
 		}
 	}
+	
+	/*Пытаюсь заюзать пагинацию*/
+	public List<Medicine> getAllMedicineUsingPagination(int offset, int numOfRecords) throws ServiceException {
+		try(TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			MedicineDaoImpl dao = currentTransaction.createMedicineDao();
+			List<Medicine> result = dao.getAllMedicineUsingPagination(offset, numOfRecords);
+			currentTransaction.endTransaction();
+			return result;
+		} catch (SQLException e) {
+			throw new ServiceException();
+		}
+	}
+
+	public int getTotalNumberOfRecordsInDatabase() throws ServiceException {
+		try(TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			MedicineDaoImpl dao = currentTransaction.createMedicineDao();
+			int result = dao.findAll().size();
+			currentTransaction.endTransaction();
+			return result;
+		} catch (SQLException e) {
+			throw new ServiceException();
+		}
+	}
+	
 }

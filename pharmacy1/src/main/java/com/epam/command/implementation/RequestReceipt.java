@@ -24,16 +24,18 @@ public class RequestReceipt implements Command{
 
 		User user = (User) request.getSession().getAttribute("user");
 		int userId = user.getId();
+		String medicineName = request.getParameter("medicineName");
 		Integer medicineId = Integer.parseInt(request.getParameter("medicineId"));
 		
 		Receipt receipt = new Receipt();
 		receipt.setAssociatedMedicine(new Medicine(medicineId));
 		receipt.setAssociatedUser(new User(userId));
 		
-		/*Сделать проверку на то, чтобы на APPROVED рецепты не  */
 		ReceiptService receiptService = new ReceiptService(new TransactionFactory());
 		
-		Optional<Receipt> maybeExsistingReceipt = receiptService.findReceiptByMedicineIdAndUserId(userId, medicineId);
+		Optional<Receipt> maybeExsistingReceipt = receiptService.findReceiptByMedicineNameAndUserId(medicineName, userId);
+		
+		//Optional<Receipt> maybeExsistingReceipt = receiptService.findReceiptByMedicineIdAndUserId(userId, medicineId);
 		if (maybeExsistingReceipt.isPresent()) {
 			page = request.getContextPath() + PageManager.getValue(PageMapper.USER_SHOPPING_CART_PAGE_KEY.getPageName());
 			request.getSession().setAttribute("messageFromReceiptService", "Receipt was already requested!");

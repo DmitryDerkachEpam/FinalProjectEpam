@@ -20,6 +20,10 @@ public class ReceiptDaoImpl extends AbstractDao<Receipt> implements ReceiptDao  
 	private static final String FIND_BY_MEDICINE_ID_AND_USER_ID = 
 			"select * from receipts where user_id = ? and medicine_id = ? and state not in ('used')";
 	
+	private static final String FIND_BY_MEDICINE_NAME_AND_USER_ID = 
+			"select * from receipts r join medicines m on r.medicine_id = m.id \r\n"
+			+ "where m.name = ? and r.state not in ('used') and r.user_id = ?";
+	
 	private static final String SAVE = 
 	    	"insert into receipts (user_id, medicine_id) values (?,?)";
 	
@@ -63,6 +67,13 @@ public class ReceiptDaoImpl extends AbstractDao<Receipt> implements ReceiptDao  
 	@Override
 	protected String getTableName() {
 		return Receipt.TABLE;
+	}
+
+	public Optional<Receipt> findByMedicineNameAndUserId(String medicineName, int userId) throws SQLException {
+		//String medNameForQuery = " ' " + medicineName + " ' ";
+		Optional<Receipt> result = null;
+		result = executeForSingleResult(FIND_BY_MEDICINE_NAME_AND_USER_ID, new ReceiptEntityBuilder(), medicineName, userId);
+		return result;
 	}
 	
 }

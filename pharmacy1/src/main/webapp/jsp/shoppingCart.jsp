@@ -52,7 +52,8 @@
 				<c:forEach var="item" items="${sessionScope.items}">
 					<form action="${pageContext.request.contextPath}/mainController"
 						method="post">
-						<input type="hidden" name="medicineId" value="${item.associatedMedicine.id}" /> 
+						<input type="hidden" name="medicineId" value="${item.associatedMedicine.id}" />
+						<input type="hidden" name="medicineName" value="${item.associatedMedicine.name}" /> 
 							<label>
 							Medicine name: ${item.associatedMedicine.name}<br> Quantity:
 							${item.quantity}<br> 

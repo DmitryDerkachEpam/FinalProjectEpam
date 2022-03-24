@@ -113,6 +113,18 @@ public class ReceiptService {
 		}
 	}
 
+	public Optional<Receipt> findReceiptByMedicineNameAndUserId(String medicineName, int userId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			Optional<Receipt> result = dao.findByMedicineNameAndUserId(medicineName, userId);
+			currentTransaction.endTransaction();
+			return result;
+		} catch (Exception e) {
+			throw new ServiceException();
+		}
+	}
+
 	
 	
 	}

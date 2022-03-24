@@ -1,17 +1,22 @@
 package com.epam.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.epam.dao.abstract_dao.AbstractDao;
 import com.epam.dao.abstract_dao.MedicineDao;
+import com.epam.dao.entity_builder.MedicineEntityBuilder;
 import com.epam.entity.Medicine;
 
 public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDao{
-	
+
 	public MedicineDaoImpl (Connection connection) {
 		super(connection);
+
 	}
 	
 	private static final String SAVE = 
@@ -45,6 +50,26 @@ public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDa
 	protected String getTableName() {
 		return Medicine.TABLE;
 	}
+
+	
+	
+	
+	/*Удалить!!!*/
+	private static final String query = "select SQL_CALC_FOUND_ROWS * from medicines limit ?, ?";
+	
+	private int numOfRecords;
+	
+	public List<Medicine> getAllMedicineUsingPagination(int offset, int numOfRecords) throws SQLException {
+		List<Medicine> result = executeForMultiResults(query, new MedicineEntityBuilder(), offset, numOfRecords);
+		return result;
+			
+	}
+	
+	public int getNumOfRecords() throws SQLException {
+		return this.findAll().size();
+	}
 	
 
+	
+/*   */
 }

@@ -41,7 +41,6 @@ public class LoginCommand implements Command {
         String password = request.getParameter(PASSWORD);
  
         UserService userService = new UserService(new TransactionFactory());
-        MedicineService medicineService = new MedicineService(new TransactionFactory());
         OrderService orderService = new OrderService(new TransactionFactory());
         ReceiptService receiptService = new ReceiptService(new TransactionFactory());
         
@@ -53,7 +52,8 @@ public class LoginCommand implements Command {
                     switch (userRole) {
                         case USER:
                             page = request.getContextPath() + PageManager.getValue(PageMapper.USER_MAIN_PAGE_KEY.getPageName());
-                            request.getSession().setAttribute("medicines", medicineService.getAllMedicinesFromDatabase());
+                            //request.getSession().setAttribute("medicines", medicineService.getAllMedicinesFromDatabase());
+                            new ShowAllMedicines().execute(request);
 
                             OrderValidator orderValidator = new OrderValidator();
                             if (!orderValidator.isOrderExists(user)) {
