@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.epam.dao.abstract_dao.AbstractDao;
 import com.epam.dao.abstract_dao.ItemDao;
 import com.epam.dao.entity_builder.ItemEntityBuilder;
+import com.epam.dao.entity_builder.OrderEntityBuilder;
 import com.epam.entity.Item;
 import com.epam.entity.Order;
 
@@ -22,6 +23,9 @@ public class ItemDaoImpl extends AbstractDao<Item> implements ItemDao {
 	
 	private static final String FIND_BY_ORDER_AND_MED_ID = 
 			"select * from order_items where order_id = ? and medicine_id = ?";
+	
+	private static final String DELETE_TEMS_BY_ORDER_ID =
+			"delete from order_items where order_id = ?";
 	
 	public ItemDaoImpl(Connection connection) {
 		super(connection);
@@ -38,8 +42,7 @@ public class ItemDaoImpl extends AbstractDao<Item> implements ItemDao {
 	}
 	
 	@Override
-	public List<Item> findByOrderId(Order order) throws SQLException {
-		int orderId = order.getId();
+	public List<Item> findItemsByOrderId(int orderId) throws SQLException {
 		List<Item> itemList = executeForMultiResults(FIND_BY_ORDER_ID, new ItemEntityBuilder(), orderId);
 		return itemList;
 	}
@@ -53,6 +56,11 @@ public class ItemDaoImpl extends AbstractDao<Item> implements ItemDao {
 		Object[] itemData = {orderId, medicineId};
 		Optional<Item> result = executeForSingleResult(FIND_BY_ORDER_AND_MED_ID, new ItemEntityBuilder(), itemData);
 		return result;
+	}
+
+	public void deleteItemsByOrderId(int orderId) throws SQLException {
+		executeForVoidResult(DELETE_TEMS_BY_ORDER_ID, orderId);
+		
 	}
 
 }

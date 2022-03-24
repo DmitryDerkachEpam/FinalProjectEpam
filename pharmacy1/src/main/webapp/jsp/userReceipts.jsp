@@ -39,6 +39,14 @@
 							<br>
 						</form>
 					</li>
+					<li>
+						<form action="${pageContext.request.contextPath}/mainController"
+							method="post">
+							<button class='btn' type="submit" name="command"
+								value=showorderhistory>Order history</button>
+							<br>
+						</form>
+					</li>
 				</ul>
 			</div>
 			<div id="content">

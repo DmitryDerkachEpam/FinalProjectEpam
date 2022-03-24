@@ -49,40 +49,21 @@
 				</ul>
 			</div>
 			<div id="content">
-				<c:forEach var="index" begin="0"
-					end="${sessionScope.medicines.size()-1}">
-
-					<form action="${pageContext.request.contextPath}/mainController"
-						method="post">
-
-						<label> <input type="hidden" name="medicineId"
-							value="${sessionScope.medicines.get(index).id}" />
-							${sessionScope.medicines.get(index).name} <br> Active dose:
-							${sessionScope.medicines.get(index).dose} mg<br> Receipt
-							required: <c:if
-								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'true'}">
-								<span>Yes</span>
-							</c:if> 
-							
-							<c:if
-								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'false'}">
-								<span>No</span>
-							</c:if> <br> Price: ${sessionScope.medicines.get(index).price}$<br>
-							<input type="number" name="quantity" value="0" />
-							<button type="submit" name="command" value="addtocart">Add
-								to cart</button> <br> 
-							<c:if test="${not empty sessionScope.message}">
-								<c:if
-									test="${sessionScope.messageId == sessionScope.medicines.get(index).id}">
-									<div style="color: green;">${sessionScope.medicines.get(index).name}
-										${sessionScope.message}</div>
-										 ${sessionScope.remove('message')}
-								</c:if> 
-							</c:if> 
-						</label>
-
-					</form>
-				</c:forEach>
+			<c:forEach var="item" items="${sessionScope.itemsForBoughtOrder}">
+			<label>
+				Medicine name: ${item.associatedMedicine.name}<br> Quantity:
+				${item.quantity}<br>  
+				Price per medicine: ${item.associatedMedicine.price}$<br><br>
+				<c:if test="${not empty sessionScope.messageFromReceiptService}">
+				<c:if test="${sessionScope.medId == item.associatedMedicine.id}">
+					<div style="color: blue;">${sessionScope.messageFromReceiptService}</div>
+					${sessionScope.remove('messageFromReceiptService')}
+					${sessionScope.remove('medId')}
+				</c:if>
+			</c:if>
+			</label>
+			</c:forEach>
+			Total price: ${sessionScope.orderTotalPrice}$<br>
 			</div>
 		</div>
 	</div>

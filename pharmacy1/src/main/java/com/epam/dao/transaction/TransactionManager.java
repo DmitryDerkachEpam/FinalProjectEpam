@@ -8,6 +8,7 @@ import com.epam.dao.MedicineDaoImpl;
 import com.epam.dao.OrderDaoImpl;
 import com.epam.dao.ReceiptDaoImpl;
 import com.epam.dao.UserDaoImpl;
+import com.epam.dao.UtilDaoImpl;
 
 public class TransactionManager implements AutoCloseable{
 
@@ -40,6 +41,10 @@ public class TransactionManager implements AutoCloseable{
 	
 	public ItemDaoImpl createItemDao() {
 		return new ItemDaoImpl(connection);
+	}
+	
+	public UtilDaoImpl createUtilDao() {
+		return new UtilDaoImpl(connection);
 	}
 	
 	public void startTransaction() throws SQLException {

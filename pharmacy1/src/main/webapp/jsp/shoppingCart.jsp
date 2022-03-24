@@ -38,16 +38,26 @@
 							<br>
 						</form>
 					</li>
+					<li>
+						<form action="${pageContext.request.contextPath}/mainController"
+							method="post">
+							<button class='btn' type="submit" name="command"
+								value=showorderhistory>Order history</button>
+							<br>
+						</form>
+					</li>
 				</ul>
 			</div>
 			<div id="content">
 				<c:forEach var="item" items="${sessionScope.items}">
 					<form action="${pageContext.request.contextPath}/mainController"
 						method="post">
-						<input type="hidden" name="medicineId"
-							value="${item.associatedMedicine.id}" /> <label>
+						<input type="hidden" name="medicineId" value="${item.associatedMedicine.id}" /> 
+							<label>
 							Medicine name: ${item.associatedMedicine.name}<br> Quantity:
-							${item.quantity}<br> Receipt required: <c:if
+							${item.quantity}<br> 
+							Dose:  ${item.associatedMedicine.dose} mg<br>
+							Receipt required: <c:if
 								test="${item.associatedMedicine.isReceiptRequired eq 'true'}">
 								<span>Yes</span>
 								<button type="submit" name="command" value="requestreceipt">Request
@@ -55,8 +65,9 @@
 								<br>
 							</c:if> <c:if
 								test="${item.associatedMedicine.isReceiptRequired eq 'false'}">
-								<span>No</span>
+								<span>No</span><br>
 							</c:if> 
+							Price per medicine: ${item.associatedMedicine.price}$<br>
 							<c:if test="${not empty sessionScope.messageFromReceiptService}">
 							<c:if test="${sessionScope.medId == item.associatedMedicine.id}">
 								<div style="color: blue;">${sessionScope.messageFromReceiptService}</div>
@@ -67,7 +78,32 @@
 						</label>
 					</form>
 				</c:forEach>
-
+				<form action="${pageContext.request.contextPath}/mainController" method="post">
+						<c:if test="${not empty sessionScope.items}">
+							<button type="submit" name="command" value="payforcart">Pay for the shopping cart</button>
+							<button type="submit" name="command" value="cartreset">Reset cart</button><br>
+						</c:if>
+						
+						<c:if test="${not empty sessionScope.itemsDeletingResult}">
+							${sessionScope.itemsDeletingResult}<br>
+							${sessionScope.remove('itemsDeletingResult')}
+						</c:if>
+						
+						<c:if test="${empty sessionScope.items}">
+							<span>Shopping cart is empty</span>
+						</c:if>
+				</form>
+				
+				<c:if test="${not empty sessionScope.paymentResult}">
+					Result: ${sessionScope.paymentResult}<br>
+					${sessionScope.remove('paymentResult')}
+				</c:if>
+				
+				<c:if test="${not empty sessionScope.totalPrice }">
+					Total Price: ${sessionScope.totalPrice}$<br>
+					${sessionScope.remove('totalPrice')}
+				</c:if>
+				
 			</div>
 		</div>
 	</div>

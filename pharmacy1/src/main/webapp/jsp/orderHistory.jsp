@@ -49,38 +49,14 @@
 				</ul>
 			</div>
 			<div id="content">
-				<c:forEach var="index" begin="0"
-					end="${sessionScope.medicines.size()-1}">
-
-					<form action="${pageContext.request.contextPath}/mainController"
-						method="post">
-
-						<label> <input type="hidden" name="medicineId"
-							value="${sessionScope.medicines.get(index).id}" />
-							${sessionScope.medicines.get(index).name} <br> Active dose:
-							${sessionScope.medicines.get(index).dose} mg<br> Receipt
-							required: <c:if
-								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'true'}">
-								<span>Yes</span>
-							</c:if> 
-							
-							<c:if
-								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'false'}">
-								<span>No</span>
-							</c:if> <br> Price: ${sessionScope.medicines.get(index).price}$<br>
-							<input type="number" name="quantity" value="0" />
-							<button type="submit" name="command" value="addtocart">Add
-								to cart</button> <br> 
-							<c:if test="${not empty sessionScope.message}">
-								<c:if
-									test="${sessionScope.messageId == sessionScope.medicines.get(index).id}">
-									<div style="color: green;">${sessionScope.medicines.get(index).name}
-										${sessionScope.message}</div>
-										 ${sessionScope.remove('message')}
-								</c:if> 
-							</c:if> 
-						</label>
-
+				<c:forEach var="item" items="${sessionScope.userOrders}">
+					<form action="${pageContext.request.contextPath}/mainController" method="post">
+						<input type="hidden" name="orderId" value="${item.id}" />
+						Order ID: ${item.id}
+						<button type="submit" name="command" value="showorder">Show additional detail</button>
+						<br>
+						Bought date: ${item.date}<br>
+						<br>
 					</form>
 				</c:forEach>
 			</div>

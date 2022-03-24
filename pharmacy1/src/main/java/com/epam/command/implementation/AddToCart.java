@@ -32,7 +32,7 @@ public class AddToCart implements Command {
 		
 		User user = (User) request.getSession().getAttribute("user");
 		
-		Optional<Order> order = orderService.findOrderByUserId(user);
+		Optional<Order> order = orderService.findActualOrderByUserId(user);
 		int orderId = order.get().getId();
 		int medId = Integer.parseInt(medicineId);
 		

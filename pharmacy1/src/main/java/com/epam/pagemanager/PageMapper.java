@@ -9,7 +9,9 @@ public enum PageMapper {
 	LOGIN_PAGE_KEY ("login.page"),
 	LOGOUT_PAGE_KEY ("logout.page"),
 	REGISTRATION_PAGE_KEY ("registration.page"),
-	USER_RECEIPTS_PAGE_KEY("user.receipts.page");
+	USER_RECEIPTS_PAGE_KEY("user.receipts.page"),
+	ORDER_HISTORY_PAGE_KEY("order.history.page"),
+	ORDER_DETAIL_PAGE_KEY("order.detail.page");
 	
 	private String pagekey;
 	

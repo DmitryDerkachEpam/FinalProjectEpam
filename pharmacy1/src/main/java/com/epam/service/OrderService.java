@@ -1,6 +1,7 @@
 package com.epam.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 import com.epam.dao.OrderDaoImpl;
@@ -30,11 +31,11 @@ public class OrderService {
 		}
 	}//createOrder_Tested
 	
-	public Optional<Order> findOrderByUserId (User user) throws ServiceException {
+	public Optional<Order> findActualOrderByUserId (User user) throws ServiceException {
 		try(TransactionManager currentTransaction = transactionFactory.create()) {
 			currentTransaction.startTransaction();
 			OrderDaoImpl dao = currentTransaction.createOrderDao();
-			Optional<Order> maybeExsitingOrder = dao.findByUserId(user);
+			Optional<Order> maybeExsitingOrder = dao.findActualOrderByUserId(user);
 			if (maybeExsitingOrder.isPresent()) {
 				maybeExsitingOrder.get().setAssociatedUser(user);
 			}
@@ -43,6 +44,23 @@ public class OrderService {
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}
+	}
+	
+	public List<Order> findUsedOrdersByUserId(User user) throws ServiceException {
+		try(TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			OrderDaoImpl dao = currentTransaction.createOrderDao();
+			List<Order> listOfUserdOrders = dao.findUsedOrdersByUserId(user);
+			for (int i = 0; i < listOfUserdOrders.size(); i++) {
+				Order order = listOfUserdOrders.get(i);
+				order.setAssociatedUser(user);
+			}
+			currentTransaction.endTransaction();
+			return listOfUserdOrders;
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
+		
 	}
 
 	public void changeItemQuantity(int quantity, int orderId, int medId) throws ServiceException {
@@ -55,6 +73,20 @@ public class OrderService {
 			throw new ServiceException(e);
 		}
 	}
+
+	public void chanageOrderStateByUserId(User user) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			OrderDaoImpl dao = currentTransaction.createOrderDao();
+			int userId = user.getId();
+			dao.changeOrderStateByUserId(userId);
+			currentTransaction.endTransaction();
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
+		
+	}
+
 }
 
 

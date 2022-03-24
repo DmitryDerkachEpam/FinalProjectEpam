@@ -62,7 +62,7 @@ public class LoginCommand implements Command {
                              	orderService.createOrder(userOrder);
                             	request.getSession().setAttribute("order", userOrder);
                             } else {
-                            	request.getSession().setAttribute("order", orderService.findOrderByUserId(user));
+                            	request.getSession().setAttribute("order", orderService.findActualOrderByUserId(user));
                             }
                             break;
                         case DOCTOR:

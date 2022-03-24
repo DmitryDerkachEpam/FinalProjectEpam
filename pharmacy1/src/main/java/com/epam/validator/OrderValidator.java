@@ -17,7 +17,7 @@ public class OrderValidator {
 	}
 	
 	public boolean isOrderExists(User user) throws ServiceException {
-		if (orderService.findOrderByUserId(user).isPresent() ) {
+		if (orderService.findActualOrderByUserId(user).isPresent() ) {
 			return true;
 		} else {
 			return false;
