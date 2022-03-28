@@ -55,7 +55,7 @@ public class MedicineDaoImpl extends AbstractDao<Medicine> implements MedicineDa
 	
 	
 	/*Удалить!!!*/
-	private static final String query = "select SQL_CALC_FOUND_ROWS * from medicines limit ?, ?";
+	private static final String query = "select * from medicines limit ?, ?";
 	
 	private int numOfRecords;
 	

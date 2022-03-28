@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -12,6 +13,10 @@
 <input type="hidden" name="command" value="registration"/>
     <div id="loginWrapper">
         <div id="loginLabel">Please, fill the registration form:</div><br>
+             <c:if test="${not empty sessionScope.message}">
+                <div style="color: red">${sessionScope.message} </div>
+                ${sessionScope.remove('message')}
+            </c:if>
         <div>
             <div>
                 User name

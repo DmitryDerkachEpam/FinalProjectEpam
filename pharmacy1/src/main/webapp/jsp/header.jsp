@@ -22,13 +22,13 @@
             </div>
             <div id="exit">
                 <div class="dropdown">
-                    <a href="#">
-                        <button class="dropBtn">Logout</button>
-                    </a>
+						<form action="${pageContext.request.contextPath}/mainController" method="post">
+                        	<button class="dropBtn" type="submit" name="command" value="logout">Logout</button>
+                  		</form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
-</html>
+</html>		

@@ -11,7 +11,6 @@ import com.epam.dto.ReceiptDto;
 import com.epam.dto.dtobuilder.BuildReceiptDto;
 import com.epam.entity.Receipt;
 import com.epam.entity.User;
-import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
@@ -20,7 +19,7 @@ import com.epam.service.ReceiptService;
 public class ShowUserReceipts implements Command {
 
 	@Override
-	public CommandResult execute(HttpServletRequest request) throws ServiceException, LoginException {
+	public CommandResult execute(HttpServletRequest request) throws ServiceException {
 		CommandResult commandResult;
 		
 		User user = (User) request.getSession().getAttribute("user");

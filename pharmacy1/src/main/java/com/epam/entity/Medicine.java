@@ -9,6 +9,7 @@ public class Medicine implements Identifable{
 	private int dose;
 	private boolean isReceiptRequired;
 	private int price;
+	private String medicineImageKey;
 	
 	public static final String TABLE = "medicines";
 	
@@ -19,13 +20,14 @@ public class Medicine implements Identifable{
 	public Medicine(int id) {
 		this.id = id;
 	}
-	
-	public Medicine (int id, String name, int dose, boolean isReceiptRequired, int price) {
+
+	public Medicine(int id, String name, int dose, boolean isReceiptRequired, int price, String medicineImageKey) {
 		this.id = id;
 		this.name = name;
 		this.dose = dose;
 		this.isReceiptRequired = isReceiptRequired;
 		this.price = price;
+		this.medicineImageKey = medicineImageKey;
 	}
 
 	public int getId() {
@@ -68,10 +70,12 @@ public class Medicine implements Identifable{
 		this.price = price;
 	}
 
-	@Override
-	public String toString() {
-		return "Medicine [id=" + id + ", name=" + name + ", dose=" + dose + ", isReceiptRequired=" + isReceiptRequired
-				+ ", price=" + price + "]";
+	public String getMedicineImageKey() {
+		return medicineImageKey;
+	}
+
+	public void setMedicineImageKey(String medicineImageKey) {
+		this.medicineImageKey = medicineImageKey;
 	}
 
 	@Override
@@ -98,6 +102,12 @@ public class Medicine implements Identifable{
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Medicine [id=" + id + ", name=" + name + ", dose=" + dose + ", isReceiptRequired=" + isReceiptRequired
+				+ ", price=" + price + ", medicineImageKey=" + medicineImageKey + "]";
 	}
 	
 }

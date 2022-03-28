@@ -5,7 +5,6 @@ import com.epam.command.Command;
 import com.epam.command.CommandResult;
 import com.epam.command.NavigationType;
 import com.epam.dao.transaction.TransactionFactory;
-import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
@@ -14,7 +13,7 @@ import com.epam.service.ReceiptService;
 public class RequestReceiptProlongation implements Command{
 
 	@Override
-	public CommandResult execute(HttpServletRequest request) throws ServiceException, LoginException {
+	public CommandResult execute(HttpServletRequest request) throws ServiceException {
 		CommandResult commandResult;
 		String page = request.getContextPath() + PageManager.getValue(PageMapper.USER_RECEIPTS_PAGE_KEY.getPageName());
 		

@@ -9,7 +9,6 @@ import com.epam.dao.transaction.TransactionFactory;
 import com.epam.entity.Medicine;
 import com.epam.entity.Receipt;
 import com.epam.entity.User;
-import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
@@ -18,7 +17,7 @@ import com.epam.service.ReceiptService;
 public class RequestReceipt implements Command{
 
 	@Override
-	public CommandResult execute(HttpServletRequest request) throws ServiceException, LoginException {
+	public CommandResult execute(HttpServletRequest request) throws ServiceException {
 		CommandResult commandResult;
 		String page = null;
 

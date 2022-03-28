@@ -63,5 +63,17 @@ public class UserService {
 			throw new ServiceException(e);
 		}
 	}
+
+	public Optional<User> getUserByName(String nameValue) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			UserDaoImpl dao = currentTransaction.createUserDao();
+			Optional<User> result = dao.findByName(nameValue);
+			currentTransaction.endTransaction();
+			return result;
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
+	}
 	
 }

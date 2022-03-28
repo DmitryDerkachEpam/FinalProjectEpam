@@ -12,7 +12,6 @@ import com.epam.entity.Item;
 import com.epam.entity.Medicine;
 import com.epam.entity.Order;
 import com.epam.entity.User;
-import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
@@ -22,7 +21,7 @@ import com.epam.service.OrderService;
 public class ShowOrder implements Command{
 
 	@Override
-	public CommandResult execute(HttpServletRequest request) throws ServiceException, LoginException {
+	public CommandResult execute(HttpServletRequest request) throws ServiceException {
 		CommandResult commandResult;
 		String page = request.getContextPath() + PageManager.getValue(PageMapper.ORDER_DETAIL_PAGE_KEY.getPageName());
 		/*Хочу увидеть итемы ордера!!!*/

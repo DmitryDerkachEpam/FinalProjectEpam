@@ -18,14 +18,22 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
 	private static final String FIND_BY_EMAIL_AND_PASSWORD_SQL = 
 			"select * from users where email = ? and password = ?";
+	
 	private static final String SAVE = 
 	    	"insert into users (name, email, password) values (?,?,?)";
-
+	
+	private static final String FIND_BY_NAME = 
+	    	"select * from users where name = ?";
+	
 	@Override
 	public Optional<User> findUserByEmailAndPassword(String login, String password) throws SQLException {
 		Optional<User> result = null;
 		result = executeForSingleResult(FIND_BY_EMAIL_AND_PASSWORD_SQL, new UserEntityBuilder(), login, password);
 		return result;
+	}
+	
+	public Optional<User> findByName(String nameValue) throws SQLException {
+		return executeForSingleResult(FIND_BY_NAME, new UserEntityBuilder(), nameValue);
 	}
 	
 	@Override
@@ -57,5 +65,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 	protected String getTableName() {
 		return User.TABLE;
 	}
+
+
 	
 }

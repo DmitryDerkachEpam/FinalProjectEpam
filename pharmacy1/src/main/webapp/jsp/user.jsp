@@ -49,28 +49,35 @@
 				</ul>
 			</div>
 			<div id="content">
-<c:forEach var="index" begin="0"
-					end="${sessionScope.medicines.size()-1}">
+	<c:forEach var="medicines" items="${sessionScope.medicines}">
 
 					<form action="${pageContext.request.contextPath}/mainController"
 						method="post">
 
 						<label> <input type="hidden" name="medicineId"
-							value="${sessionScope.medicines.get(index).id}" />
-							${sessionScope.medicines.get(index).name} <br> Active dose:
-							${sessionScope.medicines.get(index).dose} mg<br> Receipt
+							value="${medicines.id}" />
+				      <div style = "position:relative; left:400px; top:0px; bottom:0px">
+        <img alt="" src="${pageContent.request.contextPath}/images/${medicines.medicineImageKey}" height="100" width="300">
+      </div>
+      						<div style = "position:relative; left:0px; top:-100px; bottom: 0px">
+							${medicines.name} <br> 
+							Active dose:
+							${medicines.dose} mg<br> 
+							Receipt
 							required: <c:if
-								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'true'}">
+								test="${medicines.isReceiptRequired eq 'true'}">
 								<span>Yes</span>
 							</c:if> 
 
 							<c:if
-								test="${sessionScope.medicines.get(index).isReceiptRequired eq 'false'}">
+								test="${medicines.isReceiptRequired eq 'false'}">
 								<span>No</span>
-							</c:if> <br> Price: ${sessionScope.medicines.get(index).price}$<br>
+							</c:if> <br>  
+							Price: ${medicines.price}$<br>
+							
 							<input type="number" name="quantity" value="0" min="1" max="10" />
 							<button type="submit" name="command" value="addtocart">Add
-								to cart</button> <br> 
+								to cart</button> 
 							<c:if test="${not empty sessionScope.message}">
 								<c:if
 									test="${sessionScope.messageId == sessionScope.medicines.get(index).id}">
@@ -79,8 +86,9 @@
 										 ${sessionScope.remove('message')}
 								</c:if> 
 							</c:if> 
+							</div>
 						</label>
-
+	
 					</form>
 				</c:forEach>
 				

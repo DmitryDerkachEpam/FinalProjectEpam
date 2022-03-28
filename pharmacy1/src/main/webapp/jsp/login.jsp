@@ -17,6 +17,7 @@
         <div>
             <c:if test="${not empty sessionScope.message}">
                 <div style="color: red">${sessionScope.message} </div>
+                ${sessionScope.remove('message')}
             </c:if>
             <div>
                 Email

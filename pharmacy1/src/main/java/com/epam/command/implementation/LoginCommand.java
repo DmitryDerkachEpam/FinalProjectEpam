@@ -1,11 +1,8 @@
 package com.epam.command.implementation;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import com.epam.command.Command;
 import com.epam.command.CommandResult;
 import com.epam.command.NavigationType;
@@ -16,12 +13,11 @@ import com.epam.entity.Order;
 import com.epam.entity.Receipt;
 import com.epam.entity.User;
 import com.epam.entity.roles.UserRole;
+import com.epam.exception.ErrorMessages;
 import com.epam.exception.ExceptionMessage;
-import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
-import com.epam.service.MedicineService;
 import com.epam.service.OrderService;
 import com.epam.service.ReceiptService;
 import com.epam.service.UserService;
@@ -34,7 +30,7 @@ public class LoginCommand implements Command {
     private static final String PASSWORD = "password";
 
 	@Override
-    public CommandResult execute(HttpServletRequest request) throws ServiceException, LoginException {
+    public CommandResult execute(HttpServletRequest request) throws ServiceException {
         CommandResult commandResult = null;
         String page;
         String email = request.getParameter(EMAIL);
@@ -45,14 +41,13 @@ public class LoginCommand implements Command {
         ReceiptService receiptService = new ReceiptService(new TransactionFactory());
         
         try {
-        	if (UserValidator.isInputFromLoginCorrect(email, password)) {
+        	if (UserValidator.isInputFromLoginFormCorrect(email, password)) {
                     User user = userService.getUserByLoginAndPassword(email, password).get();
                     UserRole userRole = user.getUserRole();
                     request.getSession().setAttribute("user", user);
                     switch (userRole) {
                         case USER:
                             page = request.getContextPath() + PageManager.getValue(PageMapper.USER_MAIN_PAGE_KEY.getPageName());
-                            //request.getSession().setAttribute("medicines", medicineService.getAllMedicinesFromDatabase());
                             new ShowAllMedicines().execute(request);
 
                             OrderValidator orderValidator = new OrderValidator();
@@ -91,7 +86,7 @@ public class LoginCommand implements Command {
                     commandResult = new CommandResult(page, NavigationType.REDIRECT);
                 } else {
             		page = request.getContextPath() + PageManager.getValue(PageMapper.LOGIN_PAGE_KEY.getPageName());
-                	request.getSession().setAttribute("message", LoginException.LOGIN_ERROR_MESSAGE);
+            		request.getSession().setAttribute("message", ErrorMessages.LOGIN_ERROR.getMessage());
                 	commandResult = new CommandResult(page, NavigationType.REDIRECT);
                 }
 

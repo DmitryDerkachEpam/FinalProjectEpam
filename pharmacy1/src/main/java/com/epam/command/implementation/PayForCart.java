@@ -7,7 +7,6 @@ import com.epam.command.CommandResult;
 import com.epam.dao.transaction.TransactionFactory;
 import com.epam.entity.Order;
 import com.epam.entity.User;
-import com.epam.exception.LoginException;
 import com.epam.exception.ServiceException;
 import com.epam.service.OrderService;
 import com.epam.service.UtilService;
@@ -15,7 +14,7 @@ import com.epam.service.UtilService;
 public class PayForCart implements Command {
 
 	@Override
-	public CommandResult execute(HttpServletRequest request) throws ServiceException, LoginException {
+	public CommandResult execute(HttpServletRequest request) throws ServiceException {
 		CommandResult commandResult;
 		
 		UtilService utilService = new UtilService(new TransactionFactory());
