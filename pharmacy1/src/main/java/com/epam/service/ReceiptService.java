@@ -89,11 +89,23 @@ public class ReceiptService {
 		
 	}
 
-	public void changeReceiptState(int receiptId) throws ServiceException {
+	public void changeReceiptStateToRequested(int receiptId) throws ServiceException {
 		try (TransactionManager currentTransaction = transactionFactory.create()) {
 			currentTransaction.startTransaction();
 			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
-			dao.changeReceiptStateById(receiptId);
+			dao.changeStateToRequested(receiptId);
+			currentTransaction.endTransaction();
+		} catch (Exception e) {
+			throw new ServiceException();
+		}
+		
+	}
+	
+	public void changeReceiptStateToApproved(int receiptId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			ReceiptDaoImpl dao = currentTransaction.createReceiptDao();
+			dao.changeStateToApproved(receiptId);
 			currentTransaction.endTransaction();
 		} catch (Exception e) {
 			throw new ServiceException();
@@ -124,6 +136,8 @@ public class ReceiptService {
 			throw new ServiceException();
 		}
 	}
+
+
 
 	
 	

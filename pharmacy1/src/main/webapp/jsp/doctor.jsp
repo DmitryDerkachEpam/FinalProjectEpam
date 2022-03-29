@@ -13,24 +13,39 @@
     <div class="main">
         <div id="sidebar">
             <ul>
-                <li><a href="#">Information about receipts</a></li>
+               	<li>
+					<form action="${pageContext.request.contextPath}/mainController"
+						method="post">
+						<button class='btn' type="submit" name="command" value="showallreceipts">Receipts</button>
+						<br>
+					</form>
+				</li>
             </ul>
         </div>
         <div id="content">
 <c:forEach var="receipts" items="${sessionScope.receipts}">
-    <h3>
+	<form action="${pageContext.request.contextPath}/mainController" method="post">
         <label>
-		Medicine name: ${receipts.medicineName}</br>
-		Requested by: ${receipts.userName} </br>
-		Receipt state: ${receipts.receiptState}
-		<c:if test="${receipts.receiptState eq 'REQUESTED'}">
-			<input type="submit" value="Approve receipt">
-		</c:if>
-	
-	
+        
+		Medicine name: ${receipts.medicineName}<br>
+		Requested by: ${receipts.userName} <br> 
+		Receipt state: ${receipts.receiptState}<br>
 
-        </label>
-    </h3>
+		<c:if test="${not empty sessionScope.message}">
+			<c:if test="${sessionScope.changedReceipt == receipts.id}">
+				<div style="color: green;">${sessionScope.message}</div>
+			 	${sessionScope.remove('message')}
+			</c:if>
+		</c:if>
+		
+		<input type="hidden" name="receiptId" value="${receipts.id}">
+			
+		<c:if test="${receipts.receiptState eq 'REQUESTED'}">
+			<button type="submit" name="command" value="approvereceipt">Approve receipt</button>
+		</c:if>
+		
+		</label>
+	</form>
 </c:forEach>
 
 

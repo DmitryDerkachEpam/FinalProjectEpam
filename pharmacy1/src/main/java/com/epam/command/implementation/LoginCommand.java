@@ -32,7 +32,7 @@ public class LoginCommand implements Command {
 	@Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         CommandResult commandResult = null;
-        String page;
+        String page = "removeLater";
         String email = request.getParameter(EMAIL);
         String password = request.getParameter(PASSWORD);
  
@@ -47,10 +47,8 @@ public class LoginCommand implements Command {
                     request.getSession().setAttribute("user", user);
                     switch (userRole) {
                         case USER:
-                            page = request.getContextPath() + PageManager.getValue(PageMapper.USER_MAIN_PAGE_KEY.getPageName());
-                            new ShowAllMedicines().execute(request);
-
-                            OrderValidator orderValidator = new OrderValidator();
+                        	
+                        	OrderValidator orderValidator = new OrderValidator();
                             if (!orderValidator.isOrderExists(user)) {
                             	Order userOrder = new Order();
                             	userOrder.setAssociatedUser(user);
@@ -59,17 +57,11 @@ public class LoginCommand implements Command {
                             } else {
                             	request.getSession().setAttribute("order", orderService.findActualOrderByUserId(user));
                             }
+                            
+                            commandResult = new ShowAllMedicines().execute(request);
                             break;
                         case DOCTOR:
-                            page = request.getContextPath() + PageManager.getValue(PageMapper.DOCTOR_MAIN_PAGE_KEY.getPageName());
-                            List<Receipt> receiptsFromDatabase = receiptService.getAllRequstedReceipts();
-                            List<ReceiptDto> receiptsForOutput = new ArrayList<>();
-                            for (int i = 0; i < receiptsFromDatabase.size(); i++) {
-                            	Receipt receipt = receiptsFromDatabase.get(i);
-                            	ReceiptDto receiptForOutput = BuildReceiptDto.BuildReceiptDtoFromReceipt(receipt);
-                            	receiptsForOutput.add(receiptForOutput);
-                            }
-                            request.getSession().setAttribute("receipts", receiptsForOutput);
+                        	commandResult = new ShowAllReceipts().execute(request);
                             break;
                         case ADMIN:
                             page = request.getContextPath() + PageManager.getValue(PageMapper.ADMIN_MAIN_PAGE_KEY.getPageName()); 
@@ -83,7 +75,7 @@ public class LoginCommand implements Command {
                         default:
                             throw new EnumConstantNotPresentException(UserRole.class, userRole.name());
                     }
-                    commandResult = new CommandResult(page, NavigationType.REDIRECT);
+                    //commandResult = new CommandResult(page, NavigationType.REDIRECT);
                 } else {
             		page = request.getContextPath() + PageManager.getValue(PageMapper.LOGIN_PAGE_KEY.getPageName());
             		request.getSession().setAttribute("message", ErrorMessages.LOGIN_ERROR.getMessage());

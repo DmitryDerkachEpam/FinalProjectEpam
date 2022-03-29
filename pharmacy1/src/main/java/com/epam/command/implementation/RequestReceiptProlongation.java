@@ -20,7 +20,7 @@ public class RequestReceiptProlongation implements Command{
 		int receiptId = Integer.parseInt(request.getParameter("receiptDtoId")); 
 		
 		ReceiptService receiptService = new ReceiptService(new TransactionFactory());
-		receiptService.changeReceiptState(receiptId);
+		receiptService.changeReceiptStateToRequested(receiptId);
 		
 		ShowUserReceipts showUserReceipts = new ShowUserReceipts();
 		commandResult = showUserReceipts.execute(request);

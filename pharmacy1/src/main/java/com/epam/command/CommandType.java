@@ -1,6 +1,7 @@
 package com.epam.command;
 
 import com.epam.command.implementation.AddToCart;
+import com.epam.command.implementation.ApproveReceipt;
 import com.epam.command.implementation.CartReset;
 import com.epam.command.implementation.LoginCommand;
 import com.epam.command.implementation.LogoutCommand;
@@ -9,6 +10,7 @@ import com.epam.command.implementation.RegistrationCommand;
 import com.epam.command.implementation.RequestReceipt;
 import com.epam.command.implementation.RequestReceiptProlongation;
 import com.epam.command.implementation.ShowAllMedicines;
+import com.epam.command.implementation.ShowAllReceipts;
 import com.epam.command.implementation.ShowOrder;
 import com.epam.command.implementation.ShowOrderHistory;
 import com.epam.command.implementation.ShowUserCart;
@@ -27,7 +29,9 @@ public enum CommandType {
 	PAYFORCART(new PayForCart()),
 	SHOWORDERHISTORY(new ShowOrderHistory()),
 	SHOWORDER(new ShowOrder()),
-	CARTRESET(new CartReset());
+	CARTRESET(new CartReset()),
+	APPROVERECEIPT(new ApproveReceipt()),
+	SHOWALLRECEIPTS(new ShowAllReceipts());
 	
     private Command command;
 

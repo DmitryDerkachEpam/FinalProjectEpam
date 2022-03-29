@@ -2,7 +2,8 @@ package com.epam.exception;
 
 public enum InformationalMessages {
 
-	REGISTARTION_SUCCESSFUL ("Successfull registration! Please, login");
+	REGISTARTION_SUCCESSFUL ("Successfull registration! Please, login"),
+	RECEIPT_STATE_CHANGED ("Receipt state was successfull changed");
 	
 	private String message;
 	

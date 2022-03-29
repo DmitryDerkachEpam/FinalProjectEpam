@@ -30,8 +30,11 @@ public class ReceiptDaoImpl extends AbstractDao<Receipt> implements ReceiptDao  
 	private static final String FIND_BY_USER_ID = 
 			"select * from receipts where user_id = ?";
 	
-	private static final String CHANGE_RECEIPT_STATE = 
+	private static final String CHANGE_RECEIPT_STATE_TO_REQUESTED = 
 			"update receipts set expiration_date = null, state = 'requested' where id = ?";
+	
+	private static final String CHANGE_RECEIPT_STATE_TO_APPROVED = 
+			"update receipts set expiration_date = NOW() + INTERVAL 12 DAY, state = 'approved' where id = ?";
 
 	public List<Receipt> findAll() throws SQLException {
 		return super.findAll();
@@ -59,8 +62,12 @@ public class ReceiptDaoImpl extends AbstractDao<Receipt> implements ReceiptDao  
 		return result;
 	}
 
-	public void changeReceiptStateById(int receiptId) throws SQLException{
-		executeForVoidResult(CHANGE_RECEIPT_STATE, receiptId);
+	public void changeStateToRequested (int receiptId) throws SQLException{
+		executeForVoidResult(CHANGE_RECEIPT_STATE_TO_REQUESTED, receiptId);
+	}
+	
+	public void changeStateToApproved(int receiptId) throws SQLException {
+		executeForVoidResult(CHANGE_RECEIPT_STATE_TO_APPROVED, receiptId);
 		
 	}
 
@@ -75,5 +82,7 @@ public class ReceiptDaoImpl extends AbstractDao<Receipt> implements ReceiptDao  
 		result = executeForSingleResult(FIND_BY_MEDICINE_NAME_AND_USER_ID, new ReceiptEntityBuilder(), medicineName, userId);
 		return result;
 	}
+
+
 	
 }
