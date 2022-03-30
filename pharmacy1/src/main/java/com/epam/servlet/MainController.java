@@ -46,7 +46,7 @@ public class MainController extends HttpServlet {
              result = command.execute(req);
              switch (result.getNavigationType()){
                  case FORWARD:
-                     req/*getServletContext()*/.getRequestDispatcher(result.getPage()).forward(req, resp);
+                     req./*getServletContext().*/getRequestDispatcher(result.getPage()).forward(req, resp);
                      break;
                  case REDIRECT:
                      resp.sendRedirect(result.getPage());

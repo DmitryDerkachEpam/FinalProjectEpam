@@ -1,16 +1,11 @@
 package com.epam.command.implementation;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import com.epam.command.Command;
 import com.epam.command.CommandResult;
 import com.epam.command.NavigationType;
 import com.epam.dao.transaction.TransactionFactory;
-import com.epam.dto.ReceiptDto;
-import com.epam.dto.dtobuilder.BuildReceiptDto;
 import com.epam.entity.Order;
-import com.epam.entity.Receipt;
 import com.epam.entity.User;
 import com.epam.entity.roles.UserRole;
 import com.epam.exception.ErrorMessages;
@@ -19,7 +14,6 @@ import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
 import com.epam.pagemanager.PageMapper;
 import com.epam.service.OrderService;
-import com.epam.service.ReceiptService;
 import com.epam.service.UserService;
 import com.epam.validator.OrderValidator;
 import com.epam.validator.UserValidator;
@@ -38,7 +32,6 @@ public class LoginCommand implements Command {
  
         UserService userService = new UserService(new TransactionFactory());
         OrderService orderService = new OrderService(new TransactionFactory());
-        ReceiptService receiptService = new ReceiptService(new TransactionFactory());
         
         try {
         	if (UserValidator.isInputFromLoginFormCorrect(email, password)) {
@@ -64,8 +57,7 @@ public class LoginCommand implements Command {
                         	commandResult = new ShowAllReceipts().execute(request);
                             break;
                         case ADMIN:
-                            page = request.getContextPath() + PageManager.getValue(PageMapper.ADMIN_MAIN_PAGE_KEY.getPageName()); 
-                            request.getSession().setAttribute("users", userService.getAllUsersFromDatabase());
+                        	commandResult = new ShowAllUsers().execute(request);  
                             break;
                         case PHARMACIST:
                         	page = request.getContextPath() + PageManager.getValue(PageMapper.PHARMACIST_MAIN_PAGE_KEY.getPageName());

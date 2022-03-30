@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Header</title>
-    <link rel="stylesheet" href="css/stylesHeader.css">
+  	<!--   <link rel="stylesheet" href="css/stylesHeader.css"> -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/css/stylesHeader.css" />
 </head>
 <body>
 <div id="wrapper">

@@ -75,5 +75,16 @@ public class UserService {
 			throw new ServiceException(e);
 		}
 	}
+
+	public void changeUserRoleById(String roleValue, String userId) throws ServiceException {
+		try (TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();
+			UserDaoImpl dao = currentTransaction.createUserDao();
+			dao.changeUserRoleById(roleValue, userId);
+			currentTransaction.endTransaction();
+		} catch (SQLException e) {
+			throw new ServiceException(e);
+		}
+	}
 	
 }

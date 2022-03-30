@@ -25,6 +25,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 	private static final String FIND_BY_NAME = 
 	    	"select * from users where name = ?";
 	
+	private static final String CHANGE_ROLE = 
+	    	"update users set role = ?  where id = ?";
+	
 	@Override
 	public Optional<User> findUserByEmailAndPassword(String login, String password) throws SQLException {
 		Optional<User> result = null;
@@ -64,6 +67,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 	
 	protected String getTableName() {
 		return User.TABLE;
+	}
+
+	public void changeUserRoleById(String roleValue, String userId) throws SQLException {
+		executeForVoidResult(CHANGE_ROLE, roleValue, userId);
 	}
 
 

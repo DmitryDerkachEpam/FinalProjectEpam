@@ -1,16 +1,12 @@
 package com.epam.command.implementation;
 
-import java.sql.SQLException;
+
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import com.epam.command.Command;
 import com.epam.command.CommandResult;
 import com.epam.command.NavigationType;
-import com.epam.dao.MedicineDaoImpl;
 import com.epam.dao.transaction.TransactionFactory;
-import com.epam.dbconnection.СonnectionManager;
 import com.epam.entity.Medicine;
 import com.epam.exception.ServiceException;
 import com.epam.pagemanager.PageManager;
