@@ -1,11 +1,16 @@
 package com.epam.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.epam.command.Command;
 import com.epam.command.CommandFactory;
 import com.epam.command.CommandResult;
@@ -15,6 +20,8 @@ import com.epam.exception.ServiceException;
 
 @WebServlet("/mainController")
 public class MainController extends HttpServlet {
+	
+	private static final Logger LOGGER = LogManager.getLogger(MainController.class);
 
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -41,12 +48,12 @@ public class MainController extends HttpServlet {
     	 String commandName = req.getParameter("command");
     	 Command command = CommandFactory.defineCommand(commandName);
     	 CommandResult result;
-    	 /*Разообраться c forward и redirect, чтобы реализовать F5 защиту*/
+  
          try {
              result = command.execute(req);
              switch (result.getNavigationType()){
                  case FORWARD:
-                     req./*getServletContext().*/getRequestDispatcher(result.getPage()).forward(req, resp);
+                     req.getRequestDispatcher(result.getPage()).forward(req, resp);
                      break;
                  case REDIRECT:
                      resp.sendRedirect(result.getPage());
@@ -54,18 +61,11 @@ public class MainController extends HttpServlet {
                  default:
                      throw new EnumConstantNotPresentException(NavigationType.class, result.getNavigationType().name());
              }
-         } catch (ServletException e) {
+         } catch (ServletException | ServiceException | IOException e ) {
             e.printStackTrace();
-            /*ЛОГИРОВАНИЕ*/
-            /*ССЫЛКА НА СТРАНИЦУ С ОШИБКОЙ*/
+            LOGGER.error("Error was occurred", e);
+         }
+    }
+    
+}
 
-		
-	} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-}
-}
-}
