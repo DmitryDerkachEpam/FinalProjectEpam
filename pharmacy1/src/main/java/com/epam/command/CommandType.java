@@ -1,5 +1,6 @@
 package com.epam.command;
 
+import com.epam.command.implementation.AddMedicine;
 import com.epam.command.implementation.AddToCart;
 import com.epam.command.implementation.ApproveReceipt;
 import com.epam.command.implementation.CartReset;
@@ -35,7 +36,8 @@ public enum CommandType {
 	APPROVERECEIPT(new ApproveReceipt()),
 	SHOWALLRECEIPTS(new ShowAllReceipts()),
 	SHOWALLUSERS(new ShowAllUsers()),
-	CHANGEROLE(new ChangeRole());
+	CHANGEROLE(new ChangeRole()),
+	ADDMEDICINE(new AddMedicine());
 	
     private Command command;
 

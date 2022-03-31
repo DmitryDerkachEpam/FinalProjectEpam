@@ -63,6 +63,7 @@ public class LoginCommand implements Command {
                         	page = request.getContextPath() + PageManager.getValue(PageMapper.PHARMACIST_MAIN_PAGE_KEY.getPageName());
                         	/*Копируем строчку их user. И пользователь и фармацевт буду видеть на jsp лекарства,разница будет в функционале*/
 //                        	request.getSession().setAttribute("medicines", medicineService.findAllMedicines());
+                        	commandResult = new CommandResult(page, NavigationType.REDIRECT);
                         	break;
                         default:
                             throw new EnumConstantNotPresentException(UserRole.class, userRole.name());

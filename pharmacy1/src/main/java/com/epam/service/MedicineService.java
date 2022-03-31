@@ -66,5 +66,16 @@ public class MedicineService {
 			throw new ServiceException();
 		}
 	}
+
+	public void saveNewMedicine(Medicine newMedicine) throws ServiceException {
+		try(TransactionManager currentTransaction = transactionFactory.create()) {
+			currentTransaction.startTransaction();			
+			MedicineDaoImpl dao = currentTransaction.createMedicineDao();
+			dao.save(newMedicine);
+			currentTransaction.endTransaction();
+		} catch (SQLException e) {
+			throw new ServiceException();
+		}
+	}
 	
 }

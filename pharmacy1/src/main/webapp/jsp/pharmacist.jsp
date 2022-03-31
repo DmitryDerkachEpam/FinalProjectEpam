@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>Pharmacist's page</title>
     <link rel="stylesheet" href="css/stylesPharmacist.css">
+    <link rel="stylesheet" href="css/stylesAdminUser.css">
 </head>
 <body>
  <%@ include file="header.jsp"%>
@@ -13,12 +14,28 @@
     <div class="main">
         <div id="sidebar">
             <ul>
-                <li><a href="#">Medicine list</a></li>
+               	<li>
+					<form action="${pageContext.request.contextPath}/mainController"
+						method="post">
+						<button class='btn' type="submit" name="command"
+							value="addMedicine">Add medicine</button>
+						<br>
+					</form>
+				</li>
+				
+				 <li>
+					<form action="${pageContext.request.contextPath}/mainController"
+						method="post">
+						<button class='btn' type="submit" name="command"
+							value="showallmedicines">Medicine list</button>
+						<br>
+					</form>
+				</li>
             </ul>
         </div>
         <div id="content">
             <div id="addNewMedicine">
-                <form action="#" method="post">
+                <form action="${pageContext.request.contextPath}/mainController" method="post">
                     <label for="medicineName">Name
                         <input id="medicineName" name="medicineName" type="text">
                     </label>
@@ -31,20 +48,13 @@
                     <label>Is receipt required:
                         <input name="isReceiptRequired" type="radio" value="false" checked>No
                         <input name="isReceiptRequired" type="radio" value="true">Yes
-                    </label>
-                    <input id="submitButton" type="submit" value="Add a new medicine" >
+                    </label>    
+                    <button id="submitButton" type="submit" name="command" value="addMedicine" >Add new medicine</button>
                 </form>
             </div>
-            <h1>Content. Content. Content. Content. Content. Content. Content. Content.
-                Content. Content. Content. Content. Content Content Content. Content.</h1>
+
             <h1>Content.</h1>
-            <h1>Content.</h1>
-            <h1>Content.</h1>
-            <h1>Content.</h1>
-            <h1>Content.</h1>
-            <h1>Content.</h1>
-            <h1>Content.</h1>
-            <h1>Content.</h1>
+
         </div>
     </div>
 </div>

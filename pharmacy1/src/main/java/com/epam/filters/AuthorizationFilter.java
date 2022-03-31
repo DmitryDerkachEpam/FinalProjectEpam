@@ -19,7 +19,8 @@ import com.epam.pagemanager.PageMapper;
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
 
-    private static final List <String> PUBLIC_PATH = Arrays.asList("/jsp/login.jsp", "/jsp/registration.jsp", "/mainController");
+	private static final List<String> PUBLIC_PATH = Arrays.asList("/jsp/login.jsp",
+			"/jsp/registration.jsp" , "/mainController");
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
