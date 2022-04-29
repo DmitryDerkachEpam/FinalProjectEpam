@@ -1,0 +1,30 @@
+#wrapper {
+    /*outline: 1px solid blue;*/
+    min-width: 700px;
+    margin: 0;
+}
+
+#footer {
+    /*outline: 1px solid blue;*/
+    background-position: left bottom;
+    background-image: url("crest.png");
+    background-repeat: repeat-x;
+    background-color: #b0d7f5;
+    height: 160px;
+}
+
+#footer div {
+    /*outline: 1px solid blue;*/
+    text-align: right;
+    padding: 80px 20px 0 0;
+}
+
+#footer a {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+#footer a:hover {
+    color:  royalblue;
+}
